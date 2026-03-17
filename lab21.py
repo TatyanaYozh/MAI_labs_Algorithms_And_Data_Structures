@@ -22,7 +22,7 @@ try:
 except FileNotFoundError:
     print(f"Error: file '{source_filename}' not found.")
     exit(1)
-
+# определяю, по какому правилу должно задаваться имя, и создаю файл
 for i in range(count):
     if start_char.isalpha():
         new_filename = f"{source_filename[:source_filename.index('.')]}{chr(ord(start_char) + i)}{source_filename[source_filename.index('.'):]}"
@@ -31,5 +31,5 @@ for i in range(count):
             new_filename = f"{source_filename[:source_filename.index('.')]}{int(start_char) + i}{source_filename[source_filename.index('.'):]}"
         except ValueError:
             new_filename = f"{source_filename[:source_filename.index('.')]}{start_char}{i}{source_filename[source_filename.index('.'):]}"
-    with open(new_filename, 'w', encoding='utf-8') as new_file:
+    with open(new_filename, 'w', encoding='utf-8') as new_file:  # копирую содержимое файла
         new_file.write(file_text)
