@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 parser = argparse.ArgumentParser(usage='lab21 [OPTIONS] filename count start_char',
                                  description='''Generation of a set number of copies of the specified file.
@@ -19,14 +20,14 @@ start_char = args.start_char
 # проверяю корректность введённых данных
 if len(start_char) != 1 and not start_char.isdigit():
     print("Error: Starting letter or digit for file names must be a single character or a digit.")
-    exit(1)
+    sys.exit(1)
 # проверяю существование файла для копирования и в случае успеха копирую его содержимое
 try:
     with open(source_filename, 'r', encoding='utf-8') as file:
         file_text = file.read()
 except FileNotFoundError:
     print(f"Error: file '{source_filename}' not found.")
-    exit(1)
+    sys.exit(1)
 # определяю, по какому правилу должно задаваться имя, и создаю файл
 plus = ''
 ii = 0
