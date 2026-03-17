@@ -25,11 +25,13 @@ except FileNotFoundError:
 # определяю, по какому правилу должно задаваться имя, и создаю файл
 for i in range(count):
     if start_char.isalpha():
-        new_filename = f"{source_filename[:source_filename.index('.')]}{chr(ord(start_char) + i)}{source_filename[source_filename.index('.'):]}"
+        if not (ord('a') <= ord(start_char) + ii <= ord('z') and ord('A') <= ord(start_char) + ii <= ord('Z')):
+            plus += start_char
+            start_char = chr(ord(start_char) - 26)
+            ii = 0
+        new_filename = f"{source_filename[:source_filename.index('.')]}{plus}{chr(ord(start_char) + ii)}{source_filename[source_filename.index('.'):]}"
+        ii += 1
     else:
-        try:
-            new_filename = f"{source_filename[:source_filename.index('.')]}{int(start_char) + i}{source_filename[source_filename.index('.'):]}"
-        except ValueError:
-            new_filename = f"{source_filename[:source_filename.index('.')]}{start_char}{i}{source_filename[source_filename.index('.'):]}"
+        new_filename = f"{source_filename[:source_filename.index('.')]}{int(start_char) + i}{source_filename[source_filename.index('.'):]}"
     with open(new_filename, 'w', encoding='utf-8') as new_file:  # копирую содержимое файла
         new_file.write(file_text)
