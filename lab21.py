@@ -31,6 +31,9 @@ except FileNotFoundError:
 # определяю, по какому правилу должно задаваться имя, и создаю файл
 plus = ''
 ii = 0
+dot_index = source_filename.index('.')
+base_name = source_filename[:dot_index]      # имя до точки
+extension = source_filename[dot_index:]      # расширение с точкой
 for i in range(count):
     if start_char.isalpha():
         if ord(start_char) + ii == ord('z') + 1 or ord(start_char) + ii == ord('Z') + 1:
@@ -39,9 +42,10 @@ for i in range(count):
             else:
                 plus += 'Z'
             ii -= 26
-        new_filename = f"{source_filename[:source_filename.index('.')]}{plus}{chr(ord(start_char) + ii)}{source_filename[source_filename.index('.'):]}"
+        current_char = chr(ord(start_char) + ii)
+        new_filename = f"{base_name}{plus}{current_char}{extension}"
         ii += 1
     else:
-        new_filename = f"{source_filename[:source_filename.index('.')]}{int(start_char) + i}{source_filename[source_filename.index('.'):]}"
+        new_filename = f"{base_name}{int(start_char) + i}{extension}"
     with open(new_filename, 'w', encoding='utf-8') as new_file:  # копирую содержимое файла
         new_file.write(file_text)
